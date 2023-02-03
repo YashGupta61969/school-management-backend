@@ -27,15 +27,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false
     },
     phone:{
-      type:DataTypes.INTEGER,
+      type:DataTypes.BIGINT,
       allowNull:false,
-    },
-    classId:{
-      type:DataTypes.INTEGER
-    },
-    schoolId:{
-      type:DataTypes.INTEGER
-    }}, {
+    }
+  }, {
     sequelize,
     modelName: 'Teachers',
   });

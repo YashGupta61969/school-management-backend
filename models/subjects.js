@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Subjects extends Model {
     /**
@@ -11,17 +12,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      // console.log("models::",models);
     }
   }
-  Subjects.init({
-    studentName:{
-      type:DataTypes.STRING,
-      allowNull:false
-    },
-    studentId:{
-      type:DataTypes.INTEGER,
-    }
-  }, {
+  Subjects.init({}, {
     sequelize,
     modelName: 'Subjects',
   });

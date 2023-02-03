@@ -15,10 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Classes.init({
     name:{
-      type:DataTypes.STRING
-    },
-    schoolId:{
-      type:DataTypes.INTEGER
+      type:DataTypes.STRING,
+      allowNull:false
     }
   }, {
     sequelize,
