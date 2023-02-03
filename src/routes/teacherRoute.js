@@ -5,7 +5,7 @@ const teacherController = require('../controllers/teacherController')
 
 router.get("/", teacherController.getAllTeacher);
 router.post("/", teacherController.createTeacher);
-router.patch("/", teacherController.updateTeacher);
-router.delete("/", teacherController.deleteTeacher);
+router.patch("/:id", teacherController.updateTeacher);
+router.delete("/:id", teacherController.deleteTeacher);
 
 module.exports = router

@@ -1,4 +1,5 @@
 const db = require('../../models')
+const paginate = require('jw-paginate')
 
 exports.getAllTeacher = (req, res) => {
     db.Teachers.findAll({
@@ -9,12 +10,12 @@ exports.getAllTeacher = (req, res) => {
         const pager = paginate(data.length, page);
         const areMorePages = pager.currentPage === pager.totalPages;
         const pageOfItems = data.slice(pager.startIndex, pager.endIndex + 1);
-        res.send({data:pageOfItems,areMorePages,status:'success' })
+        res.send({ data: pageOfItems, areMorePages, status: 'success' })
     }).catch(err => res.status(500).send({ error: err, status: 'error' }))
 }
 
 exports.createTeacher = (req, res) => {
-    db.Teachers.create(req.body).then(() => res.send({ message: 'Teacher Created Successfully' })).catch(err => res.status(500).send({ error: err, status: 'error' }))
+    db.Teachers.create(req.body).then(() => res.send({ message: 'Teacher Created Successfully', status: 'success' })).catch(err => res.status(500).send({ error: err, status: 'error' }))
 }
 
 exports.updateTeacher = (req, res) => {
@@ -22,13 +23,13 @@ exports.updateTeacher = (req, res) => {
         where: {
             id: req.params.id
         }
-    }).then(() => res.send({ message: 'Teacher Updated Successfully' })).catch(err => res.status(500).send({ error: err, status: 'error' }))
+    }).then(() => res.send({ message: 'Teacher Updated Successfully', status: 'success' })).catch(err => res.status(500).send({ error: err, status: 'error' }))
 }
 
 exports.deleteTeacher = (req, res) => {
-    db.Teachers.delete({
+    db.Teachers.destroy({
         where: {
             id: req.params.id
         }
-    }).then(() => res.send({ message: 'Teacher Created Successfully' })).catch(err => res.status(500).send({ error: err, status: 'error' }))
+    }).then(() => res.send({ message: 'Teacher Deleted Successfully', status: 'success' })).catch(err => res.status(500).send({ error: err, status: 'error' }))
 }

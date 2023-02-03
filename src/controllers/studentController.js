@@ -1,4 +1,5 @@
-const db = require('../../models')
+const db = require('../../models');
+const paginate = require('jw-paginate') 
 
 exports.getAllStudent = (req, res) => {
     db.Students.findAll({
