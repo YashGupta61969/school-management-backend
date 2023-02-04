@@ -1,11 +1,12 @@
 const express = require('express')
 
 const router = express.Router()
-const subjectController = require('../controllers/subjectController')
+const subjectController = require('../controllers/subjectController');
+const auth = require('../middlewares/auth');
 
-router.get("/", subjectController.getAllSubject);
-router.post("/", subjectController.createSubject);
-router.patch("/:id", subjectController.updateSubject);
-router.delete("/:id", subjectController.deleteSubject);
+router.get("/",auth, subjectController.getAllSubject);
+router.post("/",auth, subjectController.createSubject);
+router.patch("/:id",auth, subjectController.updateSubject);
+router.delete("/:id",auth, subjectController.deleteSubject);
 
 module.exports = router

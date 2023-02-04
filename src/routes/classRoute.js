@@ -1,11 +1,12 @@
 const express = require('express')
 
 const router = express.Router()
-const classController = require('../controllers/classController')
+const classController = require('../controllers/classController');
+const auth = require('../middlewares/auth');
 
-router.get("/", classController.getAllClass);
-router.post("/", classController.createClass);
-router.patch("/:id", classController.updateClass);
-router.delete("/:id", classController.deleteClass);
+router.get("/",auth, classController.getAllClass);
+router.post("/",auth, classController.createClass);
+router.patch("/:id",auth, classController.updateClass);
+router.delete("/:id",auth, classController.deleteClass);
 
 module.exports = router
