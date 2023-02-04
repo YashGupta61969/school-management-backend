@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
   Subjects.init({
     name:{
       type:DataTypes.STRING,
-      allowNull:false
+      allowNull:false,
+      unique:true
     }
   }, {
     sequelize,

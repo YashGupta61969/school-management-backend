@@ -26,7 +26,7 @@ exports.login = (req,res)=>{
                         },
                         process.env.JWT_KEY,
                         {
-                            expiresIn: "1h"
+                            expiresIn: "5h"
                         }
                     );
                         res.status(200).send({
