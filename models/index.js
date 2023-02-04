@@ -12,7 +12,6 @@ const School = require('./school')
 const Teacher = require('./teachers')
 const Classes = require('./classes')
 const Student = require('./students')
-const Student_Subject = require('./student_subject')
 const db = {};
 
 let sequelize;
@@ -51,16 +50,16 @@ db.Teachers= Teacher(sequelize,DataTypes)
 db.Subjects = Subject(sequelize,DataTypes)
 db.Classes = Classes(sequelize,DataTypes)
 db.Students = Student(sequelize,DataTypes)
-db.Student_Subject = Student_Subject(sequelize,DataTypes)
+// db.Student_Subject = Student_Subject(sequelize,DataTypes)
 
 db.Schools.hasMany(db.Students);
 db.Students.belongsTo(db.Schools)
 
-// db.Students.hasOne(db.Subjects)
-// db.Subjects.belongsTo(db.Students)
+// db.Subjects.belongsToMany(db.Students,{through:'student_subject'})
+// db.Students.belongsToMany(db.Subjects,{through:'student_subject'})
 
-db.Subjects.belongsToMany(db.Students,{through:'student_subject'})
-db.Students.belongsToMany(db.Subjects,{through:'student_subject'})
+db.Subjects.hasMany(db.Students)
+db.Students.belongsTo(db.Subjects)
 
 db.Schools.hasMany(db.Classes)
 db.Classes.belongsTo(db.Schools)
