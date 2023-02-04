@@ -10,7 +10,7 @@ exports.getAllStudent = (req, res) => {
         const pager = paginate(data.length, page);
         const areMorePages = pager.currentPage === pager.totalPages;
         const pageOfItems = data.slice(pager.startIndex, pager.endIndex + 1);
-        res.send({ status: 'success', data: pageOfItems, areMorePages })
+        res.send({ status: 'success', data: pageOfItems, areMorePages:!areMorePages })
     }).catch(err => res.status(500).send({ error: err, status: 'error' }))
 }
 
@@ -26,10 +26,17 @@ exports.updateStudent = (req, res) => {
     }).then(() => res.send({ status: 'success', message: 'Student Updated Successfully' })).catch(err => res.status(500).send({ error: err, status: 'error' }))
 }
 
-exports.deleteStudent = (req, res) => {
-    db.Students.delete({
-        where: {
-            id: req.params.id
-        }
-    }).then(() => res.send({ message: 'Student Created Successfully' })).catch(err => res.status(500).send({ error: err, status: 'error' }))
+exports.deleteStudent = async(req, res) => {
+    try{
+        await db.Students.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+
+        res.send({ message: 'Student Deleted Successfully', status:'success' })
+    }catch(error){
+        console.log(error)
+        res.status(500).send({ error, status: 'error' })
+    }
 }

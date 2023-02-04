@@ -17,8 +17,21 @@ exports.getAllSubject = (req, res) => {
 
 exports.createSubject = async (req, res) => {
     try {
-        const subjectData = await db.Subjects.create(req.body);
-        await db.Student_Subject.create({ SubjectId: subjectData.id, StudentId: req.body.StudentId })
+        const student = await db.Students.findOne({
+            where:{
+                id:req.body.StudentId
+            }
+        });
+
+        if(student.SubjectId){
+            return res.send({status:'error', message:'Student Has Selected An Subject'})
+        }
+
+        await db.Students.update({SubjectId:req.body.SubjectId},{
+            where:{
+                id:req.body.StudentId
+            }
+        })
         res.send({ message: 'Subject Created Successfully', status: 'success' })
     } catch (error) {
         res.status(500).send({ error, status: 'error' })
@@ -26,7 +39,7 @@ exports.createSubject = async (req, res) => {
 }
 
 exports.updateSubject = (req, res) => {
-    db.Subjects.update(req.body, {
+    db.Students.update(req.body, {
         where: {
             id: req.params.id
         }
@@ -34,7 +47,7 @@ exports.updateSubject = (req, res) => {
 }
 
 exports.deleteSubject = (req, res) => {
-    db.Subjects.destroy({
+    db.Student_Subject.destroy({
         where: {
             id: Number(req.params.id)
         }
